@@ -68,4 +68,25 @@ class CreateTagsTest extends TestCase
 
         $this->assertEquals(0, Tag::count());
     }
+
+    /** @test */
+    public function tags_name_must_be_unique_to_create_a_new_tag()
+    {
+//        Store a tag into the database
+        $tag = Tag::factory()->create([
+            'name' => 'name-tag',
+            'description' => 'new tag description',
+        ]);
+
+//        Just make a tag and save it into $tag variable
+        $tag = Tag::factory()->make([
+            'name' => 'name-tag',
+            'description' => 'new tag description',
+        ]);
+
+        $this->post("/api/tags", $tag->toArray())
+            ->assertSessionHasErrors('name');
+
+        $this->assertEquals(1, Tag::count());
+    }
 }
