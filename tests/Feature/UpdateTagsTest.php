@@ -28,4 +28,20 @@ class UpdateTagsTest extends TestCase
             'slug' => Str::slug('new tag name'),
         ]);
     }
+
+    /** @test */
+    public function test_an_image_is_not_required_to_update_a_tag()
+    {
+        $tag = Tag::factory()->create();
+
+        $this->put(route('tags.update', $tag->slug), [
+            'name' => 'new tag name',
+            'description' => 'new tag description',
+        ])->assertStatus(200);
+
+        $this->assertDatabaseHas('tags', [
+            'name' => 'new tag name',
+            'slug' => Str::slug('new tag name'),
+        ]);
+    }
 }
