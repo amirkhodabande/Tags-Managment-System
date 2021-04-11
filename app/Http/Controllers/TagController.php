@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Tag\CreateRequest;
 use App\Http\Resources\Tag\TagResource;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class TagController extends Controller
 {
@@ -21,12 +23,22 @@ class TagController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  CreateRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request)
     {
-        //
+        $name = $request->name;
+
+        $tag = Tag::create([
+            'name' => $name,
+            'slug' => Str::slug($name),
+            'description' => $request->description,
+        ]);
+
+        $tag->addMedia($request->image)->toMediaCollection();
+
+        return response("The tag created successfully!", 201);
     }
 
     /**
