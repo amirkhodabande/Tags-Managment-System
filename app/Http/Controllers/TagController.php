@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Tag\CreateRequest;
+use App\Http\Requests\Tag\UpdateRequest;
 use App\Http\Resources\Tag\TagResource;
 use App\Http\Resources\Tag\TagCollection;
 use App\Models\Tag;
@@ -56,13 +57,28 @@ class TagController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  UpdateRequest  $request
      * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tag $tag)
+    public function update(UpdateRequest $request, Tag $tag)
     {
-        //
+        $name = $request->name;
+
+        $tag->update([
+            'name' => $name,
+            'slug' => Str::slug($name),
+            'description' => $request->description,
+        ]);
+
+        if($tag->image) {
+            if($tag->media()) {
+                $tag->deleteMedia();
+            }
+            $tag->addMedia($tag->image)->toMediaCollection();
+        }
+
+        return ("The tag: $tag->slug Updated successfully!");
     }
 
     /**
@@ -73,6 +89,6 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
-        //
+
     }
 }
