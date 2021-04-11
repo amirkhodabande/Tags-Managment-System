@@ -12,6 +12,22 @@ class CreateTagsTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
+    public function a_valid_tag_can_be_stored()
+    {
+        $this->withoutExceptionHandling();
+        $tag = [
+            'name' => 'name of the valid tag',
+            'description' => 'new tag description',
+            'image' => 'D:\sports.jpg',
+        ];
+
+        $this->post("/api/tags", $tag)
+            ->assertStatus(201);
+
+        $this->assertEquals(1, Tag::count());
+    }
+
+    /** @test */
     public function the_name_is_required_to_create_a_tag()
     {
         $tag = [
