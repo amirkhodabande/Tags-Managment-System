@@ -13,6 +13,11 @@ class Tag extends Model implements HasMedia
 
     protected $guarded = [];
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
     public function products()
     {
         return $this->morphedByMany(Product::class, 'taggable');
