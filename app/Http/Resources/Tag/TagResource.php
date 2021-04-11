@@ -23,7 +23,10 @@ class TagResource extends JsonResource
             'image' => $this->getFirstMedia() ? $this->getFirstMedia()->getUrl() : "",
             'products' => [
                 $this->products
-            ]
+            ],
+            'articles' => [
+                $this->articles
+            ],
         ];
     }
 }
