@@ -89,6 +89,10 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
+        $tag->products()->detach();
+        $tag->articles()->detach();
 
+        $tag->delete();
+        return ("The tag removed successfully!");
     }
 }
