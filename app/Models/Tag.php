@@ -27,4 +27,17 @@ class Tag extends Model implements HasMedia
     {
         return $this->morphedByMany(Article::class, 'taggable');
     }
+
+    public static function search($data)
+    {
+        $tag = Tag::orderBy('created_at', 'desc');
+        if (sizeof($data) > 0) {
+            if (array_key_exists('name', $data)) {
+                $tag = $tag->where('name', 'like', '%' . $data['name'] . '%');
+            }
+        }
+
+        $tag = $tag->paginate(10);
+        return $tag;
+    }
 }

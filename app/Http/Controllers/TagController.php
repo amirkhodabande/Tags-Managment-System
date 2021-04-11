@@ -17,9 +17,9 @@ class TagController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return new TagCollection(Tag::paginate(10));
+        return new TagCollection(Tag::search($request->all()));
     }
 
     /**
