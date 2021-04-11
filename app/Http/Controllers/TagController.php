@@ -38,7 +38,9 @@ class TagController extends Controller
             'description' => $request->description,
         ]);
 
-        $tag->addMedia($request->image)->toMediaCollection();
+//        The file will now be associated with the newsitem and will be moved to the disk you've configured.
+//        preservingOriginal will preserve the original file.
+        $tag->addMedia($request->image)->preservingOriginal()->toMediaCollection();
 
         return response("The tag created successfully!", 201);
     }
