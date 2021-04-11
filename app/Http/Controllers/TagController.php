@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Tag\CreateRequest;
 use App\Http\Resources\Tag\TagResource;
+use App\Http\Resources\Tag\TagCollection;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -17,7 +18,7 @@ class TagController extends Controller
      */
     public function index()
     {
-        return TagResource::collection(Tag::paginate(10));
+        return new TagCollection(Tag::paginate(10));
     }
 
     /**

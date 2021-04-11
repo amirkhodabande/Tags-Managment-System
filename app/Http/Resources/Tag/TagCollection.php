@@ -15,11 +15,10 @@ class TagCollection extends ResourceCollection
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'slug' => $this->slug,
-            'description' => $this->description,
-            'image' => $this->getFirstMedia() ? $this->getFirstMedia()->getUrl() : "",
+            'data' => $this->collection,
+            'links' => [
+                'self' => 'link-value',
+            ],
         ];
     }
 }
