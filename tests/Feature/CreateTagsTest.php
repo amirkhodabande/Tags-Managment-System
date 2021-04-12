@@ -14,7 +14,6 @@ class CreateTagsTest extends TestCase
     /** @test */
     public function a_valid_tag_can_be_stored()
     {
-        $this->withoutExceptionHandling();
         $tag = [
             'name' => 'name of the valid tag',
             'description' => 'new tag description',
