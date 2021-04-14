@@ -24,6 +24,9 @@
    : `php artisan storage:link`
 
 
+#### All of the tests are in tests folder.
+
+
 ### Postman API Collection
 https://www.getpostman.com/collections/053abcc78419ce88ab88
 
